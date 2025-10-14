@@ -1,0 +1,15 @@
+# Dossier de configuration VS Code
+.vscode/
+
+# Fichiers temporaires ou systèmes (optionnel mais utile)
+.DS_Store
+Thumbs.db
+vitesses.txt
+
+# Environnements virtuels (si tu utilises Python par exemple)
+venv/
+env/
+
+# Sauvegardes d’éditeurs
+*.bak
+*.tmp
