@@ -9,21 +9,25 @@
 
 int main() {
     // Création de la fenêtre
-    sf::RenderWindow window(sf::VideoMode({800, 600}), "Jeu à 60 FPS");
-    window.setFramerateLimit(60);
+    sf::RenderWindow window(sf::VideoMode({800, 600}), "Jeu à 50 FPS");
+    window.setFramerateLimit(50);
 
     std::vector<Point> points;
     std::vector<Line> lines;
+    std::vector<Muscle> muscles;
 
     points.emplace_back(sf::Vector2f(150, 286), sf::Vector2f(0, 0));
     points.emplace_back(sf::Vector2f(200, 200), sf::Vector2f(0, 0));
     points.emplace_back(sf::Vector2f(250, 280), sf::Vector2f(0, 0));
-    //points.emplace_back(sf::Vector2f(300, 200), sf::Vector2f(0, -180));
+    // points.emplace_back(sf::Vector2f(300, 200), sf::Vector2f(0, -180));
     //points.emplace_back(sf::Vector2f(100, 200), sf::Vector2f(-40, 180));
     lines.emplace_back(points[0], points[1]);
     lines.emplace_back(points[1], points[2]);
-    // lines.emplace_back(points[0], points[2]);
+    // lines.emplace_back(points[1], points[3]);
     //lines.emplace_back(points[3], points[4]);
+
+    muscles.emplace_back(points[1], points[0], points[2], 100.f, 100.f, 0.f);
+
     
 
     // Création de la vue (caméra)
@@ -64,7 +68,12 @@ int main() {
         // Déplacement de la caméra
         view.move(cameraMovement);
         window.setView(view);
-
+        
+        for (auto& muscle : muscles) {
+            muscle.update(deltaTime);
+            muscle.applyForces(deltaTime);
+        }
+    
         // Mise à jour des points et de la ligne
         for (auto& point : points) {
             point.update(deltaTime);
