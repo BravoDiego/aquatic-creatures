@@ -10,7 +10,7 @@ class Point {
         // void print();
         void update(float deltaTime);
         void move(const sf::Vector2f& offset);
-        void applyForce(const sf::Vector2f& force, float dt);
+        void applyForce(const sf::Vector2f& force);
         void set_Velocity(const sf::Vector2f& velocity);
         void set_Position(const sf::Vector2f& position);
         sf::Vector2f get_Velocity();

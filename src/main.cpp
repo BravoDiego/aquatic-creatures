@@ -71,7 +71,7 @@ int main() {
         
         for (auto& muscle : muscles) {
             muscle.update(deltaTime);
-            muscle.applyForces(deltaTime);
+            muscle.applyForces();
         }
     
         // Mise à jour des points et de la ligne

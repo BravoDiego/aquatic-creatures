@@ -18,7 +18,7 @@ private:
 public:
     Muscle(Point& c, Point& a, Point& b, float strength = 200.f, float frequency = 2.f, float phase = 0.f);
     void update(float dt);
-    void applyForces(float dt);
+    void applyForces();
 };
 
 #endif

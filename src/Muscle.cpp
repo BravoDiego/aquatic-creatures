@@ -9,7 +9,7 @@ void Muscle::update(float dt) {
     activation = std::sin(phase); // contraction sinusoïdale
 }
 
-void Muscle::applyForces(float dt) {
+void Muscle::applyForces() {
     sf::Vector2f dir1 = center.get_Position() - p1.get_Position();
     sf::Vector2f dir2 = center.get_Position() - p2.get_Position();
 
@@ -22,10 +22,10 @@ void Muscle::applyForces(float dt) {
 
     float f = strength * activation;
 
-    p1.applyForce(dir1 * f, dt);
-    p2.applyForce(dir2 * f, dt);
+    p1.applyForce(dir1 * f);
+    p2.applyForce(dir2 * f);
 
     // Réaction équilibrée sur le centre
     sf::Vector2f reaction = -(dir1 * f + dir2 * f);
-    center.applyForce(reaction*0.5f, dt);
+    center.applyForce(reaction*0.5f);
 }

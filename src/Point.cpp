@@ -17,8 +17,8 @@ void Point::move(const sf::Vector2f& offset) {
     pos += offset;
 }
 
-void Point::applyForce(const sf::Vector2f& force, float dt) {
-    vel += force * dt;
+void Point::applyForce(const sf::Vector2f& force) {
+    vel += force;
 }
 
 void Point::set_Velocity(const sf::Vector2f& velocity) {
