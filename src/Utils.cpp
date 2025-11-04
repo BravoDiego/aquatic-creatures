@@ -9,7 +9,7 @@ float magnitude(const sf::Vector2f& v) {
 }
 
 void checkCollision(Point& p1, Point& p2) {
-    float minDistance = 30.f; // Distance minimale entre les points
+    float minDistance = 15.f; // Distance minimale entre les points
     sf::Vector2f delta = p2.get_Position() - p1.get_Position();
     float distance = magnitude(delta);
 

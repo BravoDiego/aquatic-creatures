@@ -3,9 +3,9 @@
 Point::Point(sf::Vector2f pos, sf::Vector2f vel)
     : pos(pos), vel(vel) 
 {
-    sphere.setRadius(15.f);
+    sphere.setRadius(10.f);
     sphere.setFillColor(sf::Color::Red);
-    sphere.setOrigin({15.f, 15.f});
+    sphere.setOrigin({10.f, 10.f});
     sphere.setPosition(pos);
 }
 
@@ -33,7 +33,7 @@ sf::Vector2f Point::get_Velocity() { return vel; }
 sf::Vector2f Point::get_Position() { return pos; }
 
 void Point::draw(sf::RenderWindow& window) {
-    sphere.setOrigin({15.f, 15.f});
+    sphere.setOrigin({10.f, 10.f});
     sphere.setPosition(pos);
     sphere.setFillColor(sf::Color::Red);
     window.draw(sphere);

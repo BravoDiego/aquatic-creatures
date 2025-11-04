@@ -5,7 +5,7 @@
 
 #include "../lib/Point.hpp"
 #include "../lib/Line.hpp"
-#include "../lib/Muscle.hpp"
+#include "../lib/Joint.hpp"
 
 int main() {
     // Création de la fenêtre
@@ -14,7 +14,7 @@ int main() {
 
     std::vector<Point> points;
     std::vector<Line> lines;
-    std::vector<Muscle> muscles;
+    std::vector<Joint> joints;
 
     points.emplace_back(sf::Vector2f(150, 286), sf::Vector2f(0, 0));
     points.emplace_back(sf::Vector2f(200, 200), sf::Vector2f(0, 0));
@@ -26,7 +26,7 @@ int main() {
     // lines.emplace_back(points[1], points[3]);
     //lines.emplace_back(points[3], points[4]);
 
-    muscles.emplace_back(points[1], points[0], points[2], 100.f, 100.f, 0.f);
+    joints.emplace_back(points[0], points[1], points[2]);
 
     
 
@@ -68,13 +68,21 @@ int main() {
         // Déplacement de la caméra
         view.move(cameraMovement);
         window.setView(view);
-        
-        for (auto& muscle : muscles) {
-            muscle.update(deltaTime);
-            muscle.applyForces();
-        }
     
-        // Mise à jour des points et de la ligne
+        // Mise à jour des points et de la lign
+
+        static float elapsed = 0.f;
+        elapsed += deltaTime;
+
+        for (auto& joint : joints) {
+            joint.update(deltaTime, elapsed);
+        }
+
+        // Mettre à jour les liens
+        for (auto& line : lines) {
+            line.update();
+        }
+
         for (auto& point : points) {
             point.update(deltaTime);
         }
@@ -83,11 +91,6 @@ int main() {
             for (size_t j = i + 1; j < points.size(); ++j) {
                 checkCollision(points[i], points[j]);
             }
-        }
-
-        // Mettre à jour les liens
-        for (auto& line : lines) {
-            line.update();
         }
         // Effacer la fenêtre
 
