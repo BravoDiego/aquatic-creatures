@@ -19,17 +19,16 @@ int main() {
     points.emplace_back(sf::Vector2f(150, 286), sf::Vector2f(0, 0));
     points.emplace_back(sf::Vector2f(200, 200), sf::Vector2f(0, 0));
     points.emplace_back(sf::Vector2f(250, 280), sf::Vector2f(0, 0));
-    // points.emplace_back(sf::Vector2f(300, 200), sf::Vector2f(0, -180));
-    //points.emplace_back(sf::Vector2f(100, 200), sf::Vector2f(-40, 180));
+    points.emplace_back(sf::Vector2f(300, 200), sf::Vector2f(0, 0));
+    points.emplace_back(sf::Vector2f(100, 200), sf::Vector2f(0, 0));
     lines.emplace_back(points[0], points[1]);
     lines.emplace_back(points[1], points[2]);
-    // lines.emplace_back(points[1], points[3]);
+    lines.emplace_back(points[3], points[4]);
     //lines.emplace_back(points[3], points[4]);
 
     joints.emplace_back(points[0], points[1], points[2]);
 
     
-
     // Création de la vue (caméra)
     sf::View view(sf::FloatRect({0.f, 0.f}, {800.f, 600.f}));
     const float cameraSpeed = 200.f;
@@ -74,8 +73,8 @@ int main() {
         static float elapsed = 0.f;
         elapsed += deltaTime;
 
-        for (auto& joint : joints) {
-            joint.update(deltaTime, elapsed);
+        for (auto& point : points) {
+            point.update(deltaTime);
         }
 
         // Mettre à jour les liens
@@ -83,8 +82,8 @@ int main() {
             line.update();
         }
 
-        for (auto& point : points) {
-            point.update(deltaTime);
+        for (auto& joint : joints) {
+            joint.update(deltaTime, elapsed);
         }
 
         for (size_t i = 0; i < points.size(); ++i) {

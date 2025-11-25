@@ -20,3 +20,10 @@ void checkCollision(Point& p1, Point& p2) {
         p2.move(correction);
     }
 }
+
+float clampf(float value, float minVal, float maxVal)
+{
+    if (value < minVal) return minVal;
+    if (value > maxVal) return maxVal;
+    return value;
+}
