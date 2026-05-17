@@ -2,7 +2,8 @@
 Line::Line(Point& p1_inp, Point& p2_inp, float thickness_inp, float targetLength_inp)
     : p1(p1_inp), p2(p2_inp), thickness(thickness_inp), targetLength(targetLength_inp) {
     line.setFillColor(sf::Color::Blue);
-    update();
+    line.setSize(sf::Vector2f(targetLength, thickness));
+    //line.setOrigin(sf::Vector2f(0.f, thickness / 2.f));
 }
 
 sf::Vector2f Line::getDirection() const {
@@ -15,40 +16,30 @@ float Line::getLength() const {
 }
 
 void Line::update() {
-    sf::Vector2f delta = getDirection();
-    float currentLength = getLength();
-    if (currentLength == 0) return;
+    sf::Vector2f p1pos = p1.get_Position();
+    sf::Vector2f p2pos = p2.get_Position();
 
-    // --- 1. Correction de position (distance)
-    float diff = (currentLength - targetLength) / currentLength;
-    sf::Vector2f correction = delta * 0.5f * diff;
+    sf::Vector2f delta = p2pos - p1pos;
+    float dist = std::sqrt(delta.x * delta.x + delta.y * delta.y);
 
-    // Appliquer la correction aux positions
-    p1.move(correction);
-    p2.move(-correction);
+    if (dist == 0.f) return;
+    sf::Vector2f n = delta / dist;
+    float error = dist - targetLength;
+    float strength = 1.f;
 
-    // --- 2. Correction de vitesse (stabilisation)
+    sf::Vector2f force = n * (error * strength);
     sf::Vector2f v1 = p1.get_Velocity();
     sf::Vector2f v2 = p2.get_Velocity();
 
-    // Vitesse relative
-    sf::Vector2f relVel = v2 - v1;
+    p1.set_Velocity(v1 + force);
+    p2.set_Velocity(v2 - force);
+    float correction_strength = 0.1f;
 
-    // Projection de la vitesse relative sur l’axe du lien
-    float dotProd = (relVel.x * delta.x + relVel.y * delta.y) / currentLength;
-    sf::Vector2f direction = delta / currentLength;
-    sf::Vector2f correctionVel = direction * (dotProd * 0.5f);
+    sf::Vector2f correction = n * (error * correction_strength);
 
-    // Enlever uniquement la composante radiale (évite oscillations)
-    p1.set_Velocity(v1 + correctionVel);
-    p2.set_Velocity(v2 - correctionVel);
+    p1.set_Position(p1pos + correction);
+    p2.set_Position(p2pos - correction);
 
-    // --- 3. Mettre à jour l’objet graphique
-    line.setSize({currentLength, thickness});
-    line.setOrigin({0.f, thickness / 2.f});
-    line.setPosition(p1.get_Position());
-    float angle = std::atan2(delta.y, delta.x);
-    line.setRotation(sf::radians(angle));
 }
 
 void Line::draw(sf::RenderWindow& window) {

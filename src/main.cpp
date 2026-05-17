@@ -5,7 +5,8 @@
 
 #include "../lib/Point.hpp"
 #include "../lib/Line.hpp"
-#include "../lib/Joint.hpp"
+//#include "../lib/Joint.hpp"
+
 
 int main() {
     // Création de la fenêtre
@@ -14,19 +15,20 @@ int main() {
 
     std::vector<Point> points;
     std::vector<Line> lines;
-    std::vector<Joint> joints;
+    //std::vector<Joint> joints;
 
-    points.emplace_back(sf::Vector2f(150, 286), sf::Vector2f(0, 0));
-    points.emplace_back(sf::Vector2f(200, 200), sf::Vector2f(0, 0));
+    points.emplace_back(sf::Vector2f(150, 286), sf::Vector2f(10, 0));
+    points.emplace_back(sf::Vector2f(200, 200), sf::Vector2f(0, -60));
     points.emplace_back(sf::Vector2f(250, 280), sf::Vector2f(0, 0));
-    points.emplace_back(sf::Vector2f(300, 200), sf::Vector2f(0, 0));
+    points.emplace_back(sf::Vector2f(300, 200), sf::Vector2f(100, 0));
     points.emplace_back(sf::Vector2f(100, 200), sf::Vector2f(0, 0));
     lines.emplace_back(points[0], points[1]);
     lines.emplace_back(points[1], points[2]);
     lines.emplace_back(points[3], points[4]);
     //lines.emplace_back(points[3], points[4]);
 
-    joints.emplace_back(points[0], points[1], points[2]);
+
+    //joints.emplace_back(points[0], points[1], points[2]);
 
     
     // Création de la vue (caméra)
@@ -82,9 +84,9 @@ int main() {
             line.update();
         }
 
-        for (auto& joint : joints) {
+        /*for (auto& joint : joints) {
             joint.update(deltaTime, elapsed);
-        }
+        }*/
 
         for (size_t i = 0; i < points.size(); ++i) {
             for (size_t j = i + 1; j < points.size(); ++j) {
