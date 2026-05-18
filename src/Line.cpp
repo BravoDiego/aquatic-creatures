@@ -37,14 +37,14 @@ void Line::update(std::vector<Point>& points)
     // direction normalisée
     sf::Vector2f n = delta / dist;
     float error = dist - targetLength;
-    float stiffness = 0.5f;
+    float stiffness = 4.0f;
     sf::Vector2f force =
         n * (error * stiffness);
 
     // appliquer inertie
     A.applyForce(force);
     B.applyForce(-force);
-    float correctionStrength = 0.2f;
+    float correctionStrength = 0.5f;
     sf::Vector2f correction =
         n * (error * correctionStrength);
     A.move(correction);

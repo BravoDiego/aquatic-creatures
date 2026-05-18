@@ -37,7 +37,7 @@ Point::Point(
 void Point::update(float deltaTime)
 {
     pos += vel * deltaTime;
-    //vel *= 0.99f; askip faurdrait en mettre 
+    vel *= 0.99f; // askip faurdrait en mettre 
 }
 
 void Point::move(const sf::Vector2f& offset)

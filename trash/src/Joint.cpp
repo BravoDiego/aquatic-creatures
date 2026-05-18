@@ -14,7 +14,7 @@ void Joint::update(float dt, float elapsedTime) {
     sf::Vector2f AB = A.get_Position() - B.get_Position();
     sf::Vector2f CB = C.get_Position() - B.get_Position();
 
-    float dot_p = dot(AB, CB);
+    float dot_p = dot_product(AB, CB);
     float magAB = magnitude(AB);
     float magCB = magnitude(CB);
 
