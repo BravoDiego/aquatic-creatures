@@ -53,7 +53,7 @@ int main() {
     lines.emplace_back(0, 1, 100.f);
     lines.emplace_back(1, 2, 100.f);
 
-    joints.emplace_back(0, 1, 2, 10, 0.5f, 2.5f, 1.f, 0.5f);
+    joints.emplace_back(0, 1, 2);
     // Génération des articulations
     /*
     adjacency.resize(points.size());

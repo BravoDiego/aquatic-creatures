@@ -1,33 +1,56 @@
-#ifndef JOINT_HPP
-#define JOINT_HPP
+// Joint.hpp
+
+#pragma once
 
 #include <SFML/Graphics.hpp>
 #include <vector>
-#include <cmath>
-#include "Point.hpp"
 
-class Joint {
+class Point;
 
+class Joint
+{
 public:
-
-    Joint(int a, int b, int c, float strength = 0.5f, float minAngle = 0.f, float maxAngle = 3.14f, float speed = 1.f, float stiffness = 0.5f);
-
-    void update(std::vector<Point>& points, float dt);
-
-private:
 
     int a;
     int b;
     int c;
 
+    // paramètres physiques
     float strength;
+    float stiffness;
+
+    // limites articulation
     float minAngle;
     float maxAngle;
-    float speed;
-    float stiffness;
-    float baseAngle;   // angle naturel
-    float frequency;   // pour futur muscles
-    float phase;
-};
 
-#endif
+    // muscle
+    bool muscle;
+
+    float speed;
+    float frequency;
+    float phase;
+
+    float amplitude;
+    float baseAngle;
+
+    // damping
+    float damping;
+
+    Joint(
+        int a,
+        int b,
+        int c,
+
+        float strength = 1.f,
+
+        float minAngle = 1.5f,
+        float maxAngle = 3.14f,
+
+        float speed = 1.f,
+        float stiffness = 0.02f,
+
+        bool muscle = true
+    );
+
+    void update(std::vector<Point>& points, float time);
+};
